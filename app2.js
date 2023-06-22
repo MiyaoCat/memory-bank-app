@@ -13,41 +13,61 @@
 // function print(note == "") {
 // 	console.log(`-----${note}`);
 // }
+
+function print(note = "") {
+	console.log(`- - - ${note} - - -`);
+	console.log(toDoList)
+}
+
+const toDoList = [];
 var count = 0;
-const id = `a${count++}`;
 
-const todoList = [
-	{
-		"id": "a1",
-		"content": "Brush Teeth"
-	},
-	{
-		"id": "a2",
-		"content": "Drink water"
-	},
-	{
-		"id": "a3",
-		"content": "Stretch"
-	},
-];
+function add(listItem) {
+	var newItem = {
+		id: `a${count++}`,
+		content: listItem,
+	};
 
-todoList.forEach(function(todoList) {
-	console.log(`${todoList.id} ${todoList.content}`);
-})
+	toDoList.push(newItem);
+	print(`Added: ${listItem}`);
+}
 
-// var count = "a3";
+function remove(id) {
+	const removedItem = toDoList[id].content;
+	console.log("Removed: " + removedItem);
 
-// //add item to list
-// function add(content) {
-// 	const newItem = {
-// 		"id": id,
-// 		"content": content
-// 	}
-// 	todoList.push(newItem);
-// }
+	toDoList.splice(id, 1);
 
-// add("a2", "Eat breakfast");
-// add("a5", "Read a book");
-// forEach(todoList, function(item) {
-//   console.log(item);
-// });
+
+	print(`Removed: ${removedItem}`)
+}
+
+add("Go to Driving Range");
+add("Make ramen");
+add("Finish Todo App");
+remove(2);
+add("Shower");
+
+function update(idToFind, updatedItem) {
+	const foundItem = toDoList[idToFind];
+
+	if (foundItem) {
+		print(`Updated: ${foundItem.content} to ${updatedItem}`)
+		foundItem.content = updatedItem;
+	} else {
+		console.log("Item not found");
+	}
+}
+
+update(0, "Eat hotdog");
+
+
+
+
+
+
+
+
+
+
+

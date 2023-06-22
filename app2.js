@@ -33,13 +33,15 @@ function add(listItem) {
 }
 
 function remove(id) {
-	const removedItem = toDoList[id].content;
-	console.log("Removed: " + removedItem);
+	const foundItem = toDoList[id];
 
-	toDoList.splice(id, 1);
-
-
-	print(`Removed: ${removedItem}`)
+	if (foundItem) {
+		const removedItem = toDoList[id].content;
+		toDoList.splice(id, 1);
+		print(`Removed: ${removedItem}`)
+	} else {
+		console.log("Item not found");
+	}
 }
 
 add("Go to Driving Range");
@@ -60,6 +62,7 @@ function update(idToFind, updatedItem) {
 }
 
 update(0, "Eat hotdog");
+remove(19);
 
 
 

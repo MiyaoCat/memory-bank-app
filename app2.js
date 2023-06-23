@@ -19,9 +19,18 @@ function add(itemToAdd) {
 }
 
 function remove(index) {
-	print(`Removed: ${groceryList[index].item}`);
+	const removeItem = groceryList[index];
 
-	groceryList.splice(index, 1);
+	if (removeItem) {
+		print(`Removed: ${groceryList[index].item}`);
+
+		groceryList.splice(index, 1);
+	} else {
+		print('Item not found');
+	}
+	
+
+	
 }
 
 function update(id, updateItem) {
@@ -32,15 +41,13 @@ function update(id, updateItem) {
 
 		foundItem.item = updateItem;
 	} else {
-		print('Item not found')
+		print('Item not found');
 	}
-
-	
 }
 
 add("peas");
 add("carrots");
 add("bread");
-remove(1);
+remove(0, 0);
 update(0, "butter");
 update(11, "butter");

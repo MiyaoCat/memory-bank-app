@@ -40,31 +40,38 @@ function findById(idToFind) {
 		return currentToDo.id == idToFind;
 	});
 }
-// function remove(idToDelete) {
-// 	const taskToRemove = findById(idToDelete); 
-// 	print(`Removed: ${taskToRemove.task}`)
-// 	if (taskToRemove) {
-// 		var newArray = toDoList.filter(function(currentToDo) {
-// 		return currentToDo.id !== idToDelete;
-// 		toDoList = newArray;
-// 		})
 
-// 	}	
-// }
 function remove(idToDelete) {
 	const taskToRemove = findById(idToDelete); 
-	print(`Removed: ${taskToRemove.task}`)
+
+	if (taskToRemove) {
+		var newArray = toDoList.filter(function(toDoListItem) {
+			return toDoListItem.id !== idToDelete;
+		})
+		toDoList = newArray;
+		print(`Removed: ${taskToRemove}`);
+	} else {
+		print("Id not found");
+	}
 	
-	var newArray = toDoList.filter(function(currentToDo) {
-		return currentToDo.id !== idToDelete;
-	})
-	toDoList = newArray;
 }
 
-console.log('foundById: ', findById('a1') );
+function update(idToUpdate, updatedTask) {
+	var taskiD = findById(idToUpdate);
+	
+	if (taskiD) {
+		print(`Updated: ${taskiD.task} to ${updatedTask}`)
+		task = updatedTask;
+	}else {
+		print("Id not found. Cannot update")
+	}
+}
+
+console.log('foundById: ', findById('a3') );
 
 add("Practice coding", true);
 remove('a1');
 
-
-
+update("a3", "Make dinner");
+update("a11", "eat food");
+remove("a20");

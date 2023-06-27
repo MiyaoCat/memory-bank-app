@@ -37,7 +37,7 @@ function add(task, done) {
 
 function findById(idToFind) {
 	return toDoList.find( function(currentToDo) {
-		return currentToDo.id == idToFind;
+		return currentToDo.id === idToFind;
 	});
 }
 
@@ -45,11 +45,14 @@ function remove(idToDelete) {
 	const taskToRemove = findById(idToDelete); 
 
 	if (taskToRemove) {
+		//Filter through list
 		var newArray = toDoList.filter(function(toDoListItem) {
+			//Keep tasks where statement is true; does the item.id == the idToDelete. If yes keep task and add to new list.
 			return toDoListItem.id !== idToDelete;
 		})
+		//Reassign the new list with new array with the item removed
 		toDoList = newArray;
-		print(`Removed: ${taskToRemove}`);
+		print(`Removed: ${taskToRemove.task}`);
 	} else {
 		print("Id not found");
 	}
@@ -61,7 +64,7 @@ function update(idToUpdate, updatedTask) {
 	
 	if (taskiD) {
 		print(`Updated: ${taskiD.task} to ${updatedTask}`)
-		task = updatedTask;
+		taskiD.task = updatedTask;
 	}else {
 		print("Id not found. Cannot update")
 	}
@@ -75,3 +78,7 @@ remove('a1');
 update("a3", "Make dinner");
 update("a11", "eat food");
 remove("a20");
+add("vacuum");
+remove("a5")
+
+add("cut hair")

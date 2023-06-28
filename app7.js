@@ -43,7 +43,9 @@ function addBook(title, author, genre, fiction) {
 		"genre": genre,
 		"fiction": fiction
 	}
-	bookList.push(newBook);
+	// bookList.push(newBook);
+	bookList = [...bookList, newBook];
+
 	print(`Added: ${newBook.title}`)
 }
 
@@ -83,10 +85,6 @@ removeBook("a2");
 updateBook("a1", "title", "Henry Sugar & Six More");
 
 removeBook("a11");
-
-
-
-
 
 
 

@@ -35,7 +35,7 @@ function GroceryListApp() {
 		}
 
 		this.groceryList = [...this.groceryList, newItem];
-		this.display(item);
+		this.display(`Added: ${newItem.item}`);
 	},
 
 	this.remove = function(idToFind) {

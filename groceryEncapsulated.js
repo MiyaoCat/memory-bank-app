@@ -3,7 +3,7 @@ const groceryListApp = {
 	theList: [],
 	idCount: 1,
 
-	display: function (note = "") {
+	display(note = "") {
 		console.log(`----${note}`);
 
 		const printItems = this.theList.map(function(items) {
@@ -21,13 +21,13 @@ const groceryListApp = {
 		// console.log(`the list: ${JSON.stringify(this.theList)}`);
 	},
 
-	findById: function (idToFind) {
+	findById(idToFind) {
 		return this.theList.find(function (item) {
 			return item.id === idToFind
 		})
 	},
 
-	add: function (item) {
+	add(item) {
 		const newItem = {
 			"id": `a${this.idCount++}`,
 			"item": item
@@ -38,7 +38,7 @@ const groceryListApp = {
 		this.display(`Added: ${item}`);
 	},
 
-	remove: function (idToRemove) {
+	remove(idToRemove) {
 		const foundId = this.findById(idToRemove);
 
 		if (foundId) {
@@ -53,7 +53,7 @@ const groceryListApp = {
 		}
 	},
 
-	update: function (id, updatedItem) {
+	update(id, updatedItem) {
 		const foundId = this.findById(id);
 
 		if (foundId) {

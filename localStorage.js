@@ -42,3 +42,23 @@ setData("player2", {name: "Jalen Brunson", team: "Knicks", position: "Point Guar
 
 let name = getData("player2");
 console.log(name.position)
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+function initialize() {
+	let startData = getData('score');
+
+	if(startData) {
+		console.log("welcome back!");
+	} else {
+		setData("score", {score: 0, play: 0})
+	}
+}
+
+
+
+
+
+
+
+

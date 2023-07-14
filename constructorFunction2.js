@@ -10,7 +10,7 @@ function GroceryListApp() {
 		const listItems = this.theList.map(function(item) {
 			return item.item;
 		}).join(", ");
-		console.log(`Items: ${listItems}`);
+		// console.log(`Items: ${listItems}`);
 		console.log("The list: ", this.theList);
 	},
 
@@ -32,7 +32,7 @@ function GroceryListApp() {
 
 		const newItem = {
 			"id": `a${this.customId++}`,
-			"price": price,
+			"price": price, 
 			"item": item,
 			"retreived": false
 		}
@@ -60,10 +60,10 @@ function GroceryListApp() {
 
 		if(foundItem) {
 			this.display(`Updated ${foundItem.item} to ${updatedItem}`);
-			
+
 			foundItem.item = updatedItem;
 		} else {
-			this.display(`Unable to find ${updatedItem}`);
+			this.display(`Unable to find ${itemToUpdate}`);
 		}
 	}
 }
@@ -78,8 +78,8 @@ cart.add("sugar", 5.49)
 cart.remove("milk")
 cart.add("plums", 5.49)
 cart.update("sugar", "salt")
-
-
+cart.remove("spam")
+cart.update("silk", "salt")
 
 
 

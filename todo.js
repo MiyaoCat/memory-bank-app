@@ -1,5 +1,12 @@
 var todos = [];
+var archiveList = [];
 var lastId = 0;
+
+const $form = document.querySelector('form');
+const $input = $form.querySelector('input');
+const $output = document.querySelector('output');
+const $remove = document.querySelector('.remove');
+const $complete = document.querySelector('.complete');
 
 function add(task) {
 	const todo = {
@@ -9,8 +16,8 @@ function add(task) {
 	};
 
 	todos = [...todos, todo];
+	renderTodos(todos);
 };
-
 
 function remove(id) {
 	const filtered = todos.filter( function(todo) { 
@@ -18,24 +25,85 @@ function remove(id) {
 	});
 
 	todos = [...filtered];
+	renderTodos(todos);
 };
 
 function complete(id) {
 	for (let i = 0; i < todos.length; i++) {
 		if ( todos[i].id === id ) {
-			todos[i].complete = true;
+			todos[i].complete = !todos[i].complete;
 		}
 	}
+	renderTodos(todos);
 };
 
+function archive() {
+	//if the todo is removed
+	let task = todos.task;
+	archiveList = [...archiveList, task]
+	//store the todo item in the archiveList
+}
 
-function show(todos) {
+function renderTodo(todo) {
+	return `
+		<li data-id=${todo.id}>
+			<div class="todo-card ">
+				<h2 class="${todo.complete ? "completed" : ""}">
+					${todo.task}
+				</h2>
 
+				<div class="actions">
+					<button class="remove">Remove</button>
+					<button class="complete">Complete</button>
+				</div>
+			</div>
+		</li>
+	`;
 };
 
-const $form = document.querySelector('form');
-const $input = $form.querySelector('input');
+function renderTodos(todos) {
+	var template = "<ul>";
+	todos.forEach( function(todo) {
+		template += renderTodo(todo);
+	});
+	template += "</ul>";
 
-window.addEventListener('click', function(event) {
-	console.log(event)
+	$output.innerHTML = template;
+};
+
+add("play golf");
+add("walk chows");
+
+$form.addEventListener('submit', function(event) {
+	event.preventDefault();
+
+	if ($input.value.trim() !== "") {
+		add($input.value.trim());
+
+		console.log("todos: ", todos)
+	}
+		
+	$input.value = '';
 })
+
+$output.addEventListener('click', function(event) {
+	if (event.target.classList == 'remove') {
+		const id = event.target.closest('li').dataset.id;
+		remove(id);
+		archive(id)
+	}
+
+	if (event.target.classList == 'complete') {
+		const id = event.target.closest('li').dataset.id;
+		complete(id);
+		let text = $completed.innerHTML;
+		console.log(text)
+	}
+})
+
+
+
+
+
+
+

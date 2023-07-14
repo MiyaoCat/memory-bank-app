@@ -8,3 +8,9 @@
 	font-size: 1.2rem;
 	font-weight: 700;
 }
+
+.completed {
+	background-color: hhsla(0, 0%, 88%, 1.00);
+	opacity: .5;
+
+}

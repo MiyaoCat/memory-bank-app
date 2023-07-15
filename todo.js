@@ -1,6 +1,6 @@
 var todos = [];
 var archiveList = [];
-var lastId = 0;
+var lastId = 1;
 
 const $form = document.querySelector('form');
 const $input = $form.querySelector('input');
@@ -19,14 +19,48 @@ function add(task) {
 	renderTodos(todos);
 };
 
-function remove(id) {
-	let filtered = todos.filter( function(todo) { 
-		return todo.id != id 
-	});
+// function remove(id) {
+// 	let removedTodo;
+// 	let filtered = todos.filter( function(todo) { 
+// 		return todo.id != id; 
+// 	});
 
-	todos = [...filtered];
-	renderTodos(todos);
-};
+// 	let task = filtered.task;
+// 	todos = [...filtered];
+// 	renderTodos(todos);
+
+// 	archive(!task);
+// };
+
+// function archive(todo) {
+// 	if (todo) {
+// 		archiveList.push(todo);
+// 		console.log('removed ', todo);
+// 	}
+// }
+
+function remove(id) {
+  let removedTodo;
+  todos = todos.filter(function(todo) {
+    if (todo.id === id) {
+      removedTodo = todo;
+      return false; // Exclude the removed todo from the todos array
+    }
+    return true;
+  });
+  archive(removedTodo);
+  console.log('removed ', removedTodo.task)
+  renderTodos(todos);
+
+}
+
+function archive(todo) {
+  if (todo) {
+    archiveList.push(todo.task);
+
+  }
+
+}
 
 function complete(id) {
 	for (let i = 0; i < todos.length; i++) {
@@ -37,24 +71,7 @@ function complete(id) {
 	renderTodos(todos);
 };
 
-function renderCompleted(todo) {
-	if (todo.completed = true) {
-		return `
-			<li data-id=${todo.id}>
-				<div class="todo-card ">
-					<h2 class="completed">
-						${todo.task}
-					</h2>
 
-					<div class="actions">
-						<button class="remove">Remove</button>
-						<button class="complete">${todo.complete ? "Undo" : "Complete"}</button>
-					</div>
-				</div>
-			</li>
-		`;
-	}
-}
 
 function renderTodo(todo) {
 	return `

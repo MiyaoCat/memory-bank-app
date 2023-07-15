@@ -20,7 +20,7 @@ function add(task) {
 };
 
 function remove(id) {
-	const filtered = todos.filter( function(todo) { 
+	let filtered = todos.filter( function(todo) { 
 		return todo.id != id 
 	});
 
@@ -37,11 +37,23 @@ function complete(id) {
 	renderTodos(todos);
 };
 
-function archive() {
-	//if the todo is removed
-	let task = todos.task;
-	archiveList = [...archiveList, task]
-	//store the todo item in the archiveList
+function renderCompleted(todo) {
+	if (todo.completed = true) {
+		return `
+			<li data-id=${todo.id}>
+				<div class="todo-card ">
+					<h2 class="completed">
+						${todo.task}
+					</h2>
+
+					<div class="actions">
+						<button class="remove">Remove</button>
+						<button class="complete">${todo.complete ? "Undo" : "Complete"}</button>
+					</div>
+				</div>
+			</li>
+		`;
+	}
 }
 
 function renderTodo(todo) {
@@ -54,11 +66,12 @@ function renderTodo(todo) {
 
 				<div class="actions">
 					<button class="remove">Remove</button>
-					<button class="complete">Complete</button>
+					<button class="complete">${todo.complete ? "Undo" : "Complete"}</button>
 				</div>
 			</div>
 		</li>
 	`;
+
 };
 
 function renderTodos(todos) {
@@ -96,14 +109,9 @@ $output.addEventListener('click', function(event) {
 	if (event.target.classList == 'complete') {
 		const id = event.target.closest('li').dataset.id;
 		complete(id);
-		let text = $completed.innerHTML;
-		console.log(text)
+		
 	}
 })
-
-
-
-
 
 
 

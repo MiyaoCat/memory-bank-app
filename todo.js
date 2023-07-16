@@ -5,6 +5,7 @@ var lastId = 1;
 const $form = document.querySelector('form');
 const $input = $form.querySelector('input');
 const $output = document.querySelector('output');
+const $archive = document.querySelector('archive');
 const $remove = document.querySelector('.remove');
 const $complete = document.querySelector('.complete');
 
@@ -19,47 +20,24 @@ function add(task) {
 	renderTodos(todos);
 };
 
-// function remove(id) {
-// 	let removedTodo;
-// 	let filtered = todos.filter( function(todo) { 
-// 		return todo.id != id; 
-// 	});
-
-// 	let task = filtered.task;
-// 	todos = [...filtered];
-// 	renderTodos(todos);
-
-// 	archive(!task);
-// };
-
-// function archive(todo) {
-// 	if (todo) {
-// 		archiveList.push(todo);
-// 		console.log('removed ', todo);
-// 	}
-// }
-
 function remove(id) {
-  let removedTodo;
-  todos = todos.filter(function(todo) {
-    if (todo.id === id) {
-      removedTodo = todo;
-      return false; // Exclude the removed todo from the todos array
-    }
-    return true;
-  });
-  archive(removedTodo);
-  console.log('removed ', removedTodo.task)
-  renderTodos(todos);
+	let removedTodo;
+	todos = todos.filter(function(todo) {
+		if (todo.id === id) {
+			removedTodo = todo;
+			return false; // Exclude the removed todo from the todos array
+		}
+		return true;
+	});
 
+	renderTodos(todos);
+	archive(removedTodo);
+	console.log('removed ', removedTodo.task);
 }
 
 function archive(todo) {
-  if (todo) {
-    archiveList.push(todo.task);
-
-  }
-
+	archiveList.push(todo);
+	renderArchives(todo); 
 }
 
 function complete(id) {
@@ -71,15 +49,13 @@ function complete(id) {
 	renderTodos(todos);
 };
 
-
-
 function renderTodo(todo) {
 	return `
 		<li data-id=${todo.id}>
 			<div class="todo-card ">
-				<h2 class="${todo.complete ? "completed" : ""}">
+				<h3 class="${todo.complete ? "completed" : ""}">
 					${todo.task}
-				</h2>
+				</h3>
 
 				<div class="actions">
 					<button class="remove">Remove</button>
@@ -88,7 +64,6 @@ function renderTodo(todo) {
 			</div>
 		</li>
 	`;
-
 };
 
 function renderTodos(todos) {
@@ -100,6 +75,33 @@ function renderTodos(todos) {
 
 	$output.innerHTML = template;
 };
+
+function renderArchiveTodos(todo) {
+	return `
+		<li data-id=${todo.id}>
+			<div class="todo-card ">
+				<h2 class="${todo.complete ? "completed" : ""}">
+					${todo.task}
+				</h2>
+
+				<div class="actions">
+					<button class="remove">Re-Add</button>
+					<button class="complete">${todo.complete ? "Undo" : "Complete"}</button>
+				</div>
+			</div>
+		</li>
+	`;
+};
+
+function renderArchives(todos) {
+	var template = "<ul>";
+		archiveList.forEach( function(todo) {
+			template += renderArchiveTodos(todo);
+		});
+		template += "</ul>";
+
+		$archive.innerHTML = template;	
+}
 
 add("play golf");
 add("walk chows");
@@ -120,7 +122,6 @@ $output.addEventListener('click', function(event) {
 	if (event.target.classList == 'remove') {
 		const id = event.target.closest('li').dataset.id;
 		remove(id);
-		archive(id)
 	}
 
 	if (event.target.classList == 'complete') {
@@ -129,6 +130,5 @@ $output.addEventListener('click', function(event) {
 		
 	}
 })
-
 
 

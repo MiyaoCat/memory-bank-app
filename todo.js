@@ -35,6 +35,10 @@ function remove(id) {
 	console.log('removed ', removedTodo.task);
 }
 
+function reAdd(todo) {
+	todos = [...todos, todo];
+}
+
 function archive(todo) {
 	archiveList.push(todo);
 	renderArchives(todo); 
@@ -68,7 +72,7 @@ function renderTodo(todo) {
 
 function renderTodos(todos) {
 	var template = "<ul>";
-	todos.forEach( function(todo) {
+	todos.forEach( function(todo) { 
 		template += renderTodo(todo);
 	});
 	template += "</ul>";
@@ -78,15 +82,14 @@ function renderTodos(todos) {
 
 function renderArchiveTodos(todo) {
 	return `
-		<li data-id=${todo.id}>
+		<li data-id=${todo.id} data-task=${todo.task}>
 			<div class="todo-card ">
 				<h2 class="${todo.complete ? "completed" : ""}">
 					${todo.task}
 				</h2>
 
 				<div class="actions">
-					<button class="remove">Re-Add</button>
-					<button class="complete">${todo.complete ? "Undo" : "Complete"}</button>
+					<button type="submit" class="reAdd">Re-Add</button>
 				</div>
 			</div>
 		</li>
@@ -106,16 +109,25 @@ function renderArchives(todos) {
 add("play golf");
 add("walk chows");
 
-$form.addEventListener('submit', function(event) {
+document.addEventListener('click', function(event) {
 	event.preventDefault();
 
-	if ($input.value.trim() !== "") {
-		add($input.value.trim());
+	if (event.target.classList == 'add') {
+		if ($input.value.trim() !== "") {
+			add($input.value.trim());
 
-		console.log("todos: ", todos)
+			console.log("todos: ", todos)
+		}
+			
+		$input.value = '';		
 	}
-		
-	$input.value = '';
+
+	if (event.target.classList == 'reAdd') {
+		let task = event.target.closest('li').dataset.task;
+		console.log('readd', task)
+		add(task)
+	}
+
 })
 
 $output.addEventListener('click', function(event) {
